@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror-one-dark-theme@1.1.1/one-dark.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>ReRead Editor</title>
+</head>
+
+<body class="dark-mode">
+  <div id="main">
+    <div id="rr-editor">ReRead Editor<br></div>
+    <div class="sep"></div>
+    <div>Regular Expression<br>
+      <div id="re-editor"></div>
+      <div id="re-error-message"></div>
+    </div>
+    <div class="sep"></div>
+    <div>
+      Test Text<br>
+      <div id="tests">
+        <span id="test1">❌</span>
+        <span id="test2">❌</span>
+        <span id="test3">❌</span>
+      </div>
+    </div>
+  </div>
+  <div id="theme-toggle">☀️</div>
+</body>
+<script type="module">
+  import "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js";
+  import "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/comment/comment.min.js";
+  import "./cm5-regex.js";
+  import { rereadEditor } from "../reread.min.js";
+
+  const rrEditorDiv = document.getElementById("rr-editor");
+  const reEditorDiv = document.getElementById("re-editor");
+  const textContainers = document.getElementById("tests");
+  const checkText1 = document.getElementById("test1");
+  const checkText2 = document.getElementById("test2");
+  const checkText3 = document.getElementById("test3");
+  const reErrorMessage = document.getElementById("re-error-message");
+  const themeToggle = document.getElementById('theme-toggle');
+
+  // const SAMPLE_RE = `^(?i:($⍟greeting|(hello|hi)){4}(?=|either "hello" or "hi")(?=|\\n)[\\s]*world(?=|optional whitespace + "world")(?=|\\n)[\\s\\S]+(\\r?\\n)(?=|\\n)(\\r?\\n){2,3}(hello|hi){2,3}?(\\r?\\n)(?=|\\n)($≈hello|(hh?ee?ll?ll?oo?|h.?llo|he.?lo|hel.?o|hell.?|hello.)) \\p{Nl} world [ab\\[\\n\\t\\]cd\\\\] [\\s\\S])$`;
+  const SAMPLE_RE = `^(?i:(hello|hi)(?=|either "hello" or "hi")(?=|\\n)[\\s]*world(?=|optional whitespace + "world")(?=|\\n)[\\s]*)$`;
+
+  const editor = (parent, value, mode) => CodeMirror(parent, {
+    lineNumbers: true, lineWrapping: true, theme: 'one-dark', value, mode
+  });
+
+  // reread editor
+  const rrEditor = rereadEditor(rrEditorDiv, { height: '10em' });
+
+  // regular expression editor
+  const reEditor = editor(reEditorDiv, '', 'regex');
+  const copyButton = reEditorDiv.appendChild(document.createElement('button'));
+  copyButton.innerText = 'Copy to Clipboard';
+  copyButton.id = 'copy-button';
+  copyButton.onclick = () => {
+    navigator.clipboard.writeText(reEditor.getValue());
+    copyButton.innerText = 'Copied.';
+    setTimeout(() => copyButton.innerText = 'Copy to Clipboard', 1000);
+  };
+
+  // text editors
+  const text1 = editor(textContainers, 'helloworld');
+  const text2 = editor(textContainers, 'HI \t woRLd\n');
+  const text3 = editor(textContainers, 'HEllo \n woRLd\n...');
+
+  // error handling
+  function handleError(err) {
+    console.error(err);
+    reErrorMessage.innerText = err.message;
+    checkText1.innerText = checkText2.innerText = checkText3.innerText = '❌';
+  }
+  function clearError() {
+    reErrorMessage.innerText = '';
+  }
+
+  // functionality
+  let changingRe = false, changingRr = false;
+  function debounce(func, wait) {
+    let timeout;
+    return function () {
+      const context = this, args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+  const stoppedChangingRe = debounce(() => {
+    changingRe = false;
+  }, 300);
+  const stoppedChangingRR = debounce(() => {
+    changingRr = false;
+  }, 300);
+
+  rrEditor.onchange = () => {
+    if (changingRe) {
+      return;
+    }
+    copyButton.innerText = 'Copy to Clipboard';
+    changingRr = true;
+    try {
+      reEditor.setValue(rrEditor.toRe());
+      checkTexts();
+    } catch (err) {
+      handleError(err);
+    }
+    stoppedChangingRR();
+  };
+  reEditor.on('change', () => {
+    if (changingRr) {
+      return;
+    }
+    changingRe = true;
+    try {
+      const rr = rrEditor.fromRe(reEditor.getValue());
+      checkTexts();
+    } catch (err) {
+      handleError(err);
+    }
+    stoppedChangingRe();
+  });
+  function checkTexts() {
+    let regex;
+    try {
+      regex = rrEditor.toRegExp();
+      clearError();
+      checkText1.innerText = regex.test(text1.getValue()) ? '✔️' : '❌';
+      checkText2.innerText = regex.test(text2.getValue()) ? '✔️' : '❌';
+      checkText3.innerText = regex.test(text3.getValue()) ? '✔️' : '❌';
+    } catch (err) {
+      handleError(err);
+    }
+  }
+  text1.on('change', checkTexts);
+  text2.on('change', checkTexts);
+  text3.on('change', checkTexts);
+
+  // set initial value
+  reEditor.setValue(SAMPLE_RE);
+
+  // dark mode
+  themeToggle.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      themeToggle.innerText = '☀️';
+      document.querySelectorAll('.CodeMirror').forEach(cme => cme.CodeMirror.setOption('theme', 'one-dark'));
+    } else {
+      themeToggle.innerText = '🌒';
+      document.querySelectorAll('.CodeMirror').forEach(cme => cme.CodeMirror.setOption('theme', 'default'));
+    }
+  };
+</script>
+
+</html>

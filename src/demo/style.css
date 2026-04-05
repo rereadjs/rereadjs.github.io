@@ -1,0 +1,108 @@
+body {
+  background-color: #eee;
+  color: #333;
+  font-family: Tahoma, Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+}
+
+body.dark-mode {
+  background-color: #1b1d20;
+  color: #ccc;
+}
+
+
+#main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1em;
+}
+
+#tests {
+  display: grid;
+  gap: 0.2em;
+  width: 95%;
+  grid-template-columns: 4em 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  align-content: start;
+  justify-content: center;
+  align-items: baseline;
+  margin: 0 1em;
+}
+
+@media screen and (min-width: 768px) {
+  #tests {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: unset;
+    grid-auto-flow: row;
+  }
+}
+
+#tests>span {
+  text-align: center;
+}
+
+
+.CodeMirror {
+  resize: both;
+  overflow: hidden;
+  max-width: 100%;
+  height: 5em;
+}
+
+.rr-editor {
+  height: 14em;
+}
+
+#rr-editor>div,
+#re-editor>div {
+  margin: 0.5em;
+}
+
+#re-editor {
+  display: flex;
+}
+
+#re-editor>div {
+  width: 70%;
+}
+
+#copy-button {
+  font-size: 65%;
+  background-color: transparent;
+  color: inherit;
+  border: solid 1px gray;
+  border-radius: .25em;
+  cursor: pointer;
+  vertical-align: top;
+  margin: 2em;
+}
+
+#copy-button:hover {
+  outline: solid 1px gray;
+}
+
+#re-error-message {
+  color: red;
+  font-size: 95%;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.dark-mode #re-error-message {
+  color: #d55;
+}
+
+.sep {
+  height: 1px;
+  border-top: dashed 1px gray;
+  margin: 0 5em;
+}
+
+#theme-toggle {
+  cursor: pointer;
+  position: fixed;
+  bottom: .25em;
+  right: .25em;
+}
