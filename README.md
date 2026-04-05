@@ -50,7 +50,7 @@ rr_editor.onchange = () => {
 };
 ```
 
-See [demo](demo/index.html) for a complete example.
+See [demo](src/demo) for a complete example.
 
 
 
