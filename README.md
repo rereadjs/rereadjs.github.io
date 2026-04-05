@@ -13,7 +13,7 @@ ReRead.js is a JavaScript library for writing editing text patterns in a more re
 
 Import as module:
 ```javascript
-import { rereadEditor } from 'https://cdn.jsdelivr.net/gh/rereadjs/rereadjs.github.io@main/src/reread.min.js';
+import { rereadEditor } from 'https://cdn.jsdelivr.net/gh/rereadjs/rereadjs.github.io@1.0/src/reread.min.js';
 ```
 
 Create a new reread editor:
