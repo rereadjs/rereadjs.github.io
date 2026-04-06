@@ -1343,8 +1343,6 @@ for (const btn of rereadBtns) {
 function addButton(btnOpt, editor) {
   const buttonRow = editor.buttonRow;
   const btn = div({
-    // className: 'rr-button ' + (btnOpt.class || btnOpt.cat?.class),
-    // className: 'rr-button ' + (btnOpt.cat?.name ? (btnOpt.class || btnOpt.cat?.class) : ''),
     className: 'rr-button ' + ((btnOpt.cat?.name || btnOpt.class === CLASS.CASE_BUTTON) ? (btnOpt.class || btnOpt.cat?.class) : ''),
     innerText: btnOpt.name,
     title: [btnOpt.hint, btnOpt.example].filter(a => a).join('; '),
@@ -1352,7 +1350,7 @@ function addButton(btnOpt, editor) {
   });
   if (btnOpt.cat?.name) {
     if (!buttonRow._buttonCategories[btnOpt.cat.name]) {
-      const catBtn = div({ className: btnOpt.cat.class + ' rr-dropdown-button rr-button' });
+      const catBtn = div({ className: (btnOpt.cat.class || '') + ' rr-dropdown-button rr-button' });
       catBtn.innerHTML = btnOpt.cat.name + ' &#9662;';//' <sub>&#9660;  &#9662;</sub>';//'  🞃';
       const catMenuContainer = catBtn.appendChild(div({ className: 'rr-button-menu' }));
       catMenuContainer.innerHTML = btnOpt.cat.hint || '';

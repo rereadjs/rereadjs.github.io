@@ -53,7 +53,7 @@ rr_editor.onchange = () => {
 See [demo](src/demo) for a complete example.
 
 
-===
+---
 ## API Reference
 
 ---
@@ -130,7 +130,7 @@ The bound function will receive the editor instance as an argument.
 - `editor`: The editor instance
 
 
-===
+================
 
 ## License
 
