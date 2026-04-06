@@ -18,9 +18,10 @@ import { rereadEditor } from 'https://cdn.jsdelivr.net/gh/rereadjs/rereadjs.gith
 
 Create a new ReRead editor:
 ```javascript
-// place into some parentElement
+// create editor and append it to some parentElement
 const rr_editor = rereadEditor(parentElement, {
-  height: '20em'
+  height: '20em',
+  width: '80em'
 });
 ```
 
