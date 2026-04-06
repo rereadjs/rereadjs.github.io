@@ -56,7 +56,6 @@ See [demo](src/demo) for a complete example.
 ---
 ## API Reference
 
----
 ### `rereadEditor(element, options)`
 
 Creates a new ReRead editor instance.
@@ -130,8 +129,7 @@ The bound function will receive the editor instance as an argument.
 - `editor`: The editor instance
 
 
-================
-
+---
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
