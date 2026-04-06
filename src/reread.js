@@ -1275,40 +1275,34 @@ const rereadBtns = [
     hint: 'add a comment (the comment will be ignored for pattern matching)',
     action: insertComment,
   },
-
-  // help/documentation
-  {
-    name: 'ⓘ',
-    // name: 'ℹ️ Help & Documentation',
-    hint: 'help/documentation',
-    class: CLASS.OPTION,
-    // cat: CATEGORIES.GENERAL,
-    // sec: 'help',
-    action: editor => {
-      // const editorContainer = editor.getContainer();
-      // const rect = editorContainer.getBoundingClientRect();
-      const widget = popupWidget(editor, null, [
-        div({ innerHTML: HELP, style: "white-space: normal; overflow:auto; padding: 0.5em;" }),
-      ]);
-      widget.classList.add('rr-centered-popup');
-      const okButton = div({ className: 'rr-button', textContent: 'OK', onclick: () => widget.close(false), style: 'margin-top: 1em; min-width: 4em;' });
-      widget.appendChild(okButton);
-      okButton.tabIndex = -1;
-      okButton.focus();
-      // widget.style.flexDirection = 'column';
-      // widget.style.alignItems = 'flex-start';
-      widget.tabIndex = -1;
-      widget.onkeydown = e => {
-        widget.close(false);
-        e.preventDefault();
-        e.stopPropagation();
-      };
-      const onblur = (e) => { if (!(widget.contains(e.relatedTarget) || e.relatedTarget === widget)) widget.close(false); };
-      widget.onblur = onblur;
-      okButton.onblur = onblur;
-    },
-  },
 ];
+
+const helpButton = {
+  name: 'ⓘ',
+  hint: 'help/documentation',
+  class: CLASS.OPTION,
+  action: editor => {
+    const widget = popupWidget(editor, null, [
+      div({ innerHTML: HELP, style: "white-space: normal; overflow:auto; padding: 0.5em;" }),
+    ]);
+    widget.classList.add('rr-centered-popup');
+    const okButton = div({ className: 'rr-button', textContent: 'OK', onclick: () => widget.close(false), style: 'margin-top: 1em; min-width: 4em;' });
+    widget.appendChild(okButton);
+    okButton.tabIndex = -1;
+    okButton.focus();
+    widget.tabIndex = -1;
+    widget.onkeydown = e => {
+      widget.close(false);
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    const onblur = (e) => { if (!(widget.contains(e.relatedTarget) || e.relatedTarget === widget)) widget.close(false); };
+    widget.onblur = onblur;
+    okButton.onblur = onblur;
+  },
+};
+
+
 
 // assign default actions for all buttons without actions
 function defaultAction(pattern) {
@@ -1359,7 +1353,7 @@ function addButton(btnOpt, editor) {
   if (btnOpt.cat?.name) {
     if (!buttonRow._buttonCategories[btnOpt.cat.name]) {
       const catBtn = div({ className: btnOpt.cat.class + ' rr-dropdown-button rr-button' });
-      catBtn.innerText = btnOpt.cat.name + '  🞃';
+      catBtn.innerHTML = btnOpt.cat.name + ' &#9662;';//' <sub>&#9660;  &#9662;</sub>';//'  🞃';
       const catMenuContainer = catBtn.appendChild(div({ className: 'rr-button-menu' }));
       catMenuContainer.innerHTML = btnOpt.cat.hint || '';
       buttonRow._buttonCategories[btnOpt.cat.name] = {
@@ -1375,10 +1369,11 @@ function addButton(btnOpt, editor) {
     buttonRow.appendChild(btn);
   }
 }
-function rereadButtonBar(editor) {
+function rereadButtonBar(editor, hideHelp) {
   editor.buttonRow = div({ className: 'rr-button-row rr-button-bar' });
   editor.buttonRow._buttonCategories = {};
   rereadBtns.forEach(btnOpt => addButton(btnOpt, editor));
+  if (!hideHelp) addButton(helpButton, editor);
   editor.caseButton = editor.buttonRow.querySelector(`.${CLASS.CASE_BUTTON}`);
   return editor.buttonRow;
 }
@@ -1805,10 +1800,7 @@ const rereadClickMap = {
 };
 
 // popup widgets
-var openWidget;
 function popupWidget(editor, position, content = []) {
-  if (openWidget) return;
-  openWidget = true;
   const cursorOffset = editor.getCursorOffset();
   const container = editor.getContainer();
   const containerRect = container.getBoundingClientRect();
@@ -1844,7 +1836,6 @@ function popupWidget(editor, position, content = []) {
       editor.focus();
       if (updateEditor) editor.update();
       editor.setCursorOffset(cursorOffset);
-      openWidget = false;
     } catch (err) { }
   };
   return widget;
@@ -1920,7 +1911,7 @@ function editCustom(editor, tokenElement) {
     const cancelButton = div({ className: 'rr-button', style: 'min-width: 5em;', textContent: 'Cancel', onclick: () => widget.close(false) });
     widget.appendChild(div({ children: ['Name: ', nameInput] }));
     widget.appendChild(div({ textContent: 'Text Pattern:' }));
-    const rrInput = rereadEditor(widget, { width: '90%', caseInheritance: true });
+    const rrInput = rereadEditor(widget, { width: '90%', caseInheritance: true, hideHelp: true });
     rrInput.fromRe(tokenElement.dataset.re || '');
     widget.appendChild(div({ children: [okButton, cancelButton], style: 'margin-top: .5em; display: flex; gap: 0.5em; margin-left: 1em' }));
     nameInput.focus();
@@ -2598,7 +2589,7 @@ export function rereadEditor(parent, options = {}) {
   parent.appendChild(container);
   const editor = tokenEditor(container, options);
   editor.caseInheritance = options.caseInheritance;
-  container.appendChild(rereadButtonBar(editor));
+  container.appendChild(rereadButtonBar(editor, options.hideHelp));
   editor.fromRe = (reStr) => {
     try {
       const rrSegments = reToRr(reStr);
@@ -2650,7 +2641,8 @@ export function rereadEditor(parent, options = {}) {
 
 const rrButtonTheme = {
   ".rr-button-bar": {
-    "font-size": "0.8rem",
+    "font-size": "85%",
+    "font-family": "Arial Narrow",
   },
   ".rr-button": {
     "padding": ".1em .75em",
@@ -2736,7 +2728,7 @@ const rrWidgetTheme = {
     "z-index": '1000',
     "background-color": 'rgb(200,200,205)',
     "color": 'black',
-    "font-size": '0.8rem',
+    "font-size": '85%',
     "padding": '.5em 1em',
     "border-radius": '3px',
     "display": 'flex',
@@ -2747,6 +2739,9 @@ const rrWidgetTheme = {
     "border": 'solid 1px #888',
     "max-width": '90vw',
     "max-height": '90vh',
+  },
+  ".rr-widget .rr-editor-container": {
+    "font-size": '117.647%',
   },
   "[dark-theme] .rr-widget": {
     "background-color": 'rgb(50,50,60)',

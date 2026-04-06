@@ -1,6 +1,6 @@
 # ReRead.js
 
-ReRead.js is a JavaScript library for writing editing text patterns in a more readable and maintainable way than standard regular expressions, with the ability to
+ReRead.js is a JavaScript library for editing text patterns in a more readable and maintainable way than standard regular expressions, with the ability to
 - import from and export to regular expression code;
 - add comments and break up the pattern into multiple lines;
 - create custom named tokens for common and/or complex patterns.
@@ -16,7 +16,7 @@ Import as module:
 import { rereadEditor } from 'https://cdn.jsdelivr.net/gh/rereadjs/rereadjs.github.io@1.0/src/reread.min.js';
 ```
 
-Create a new reread editor:
+Create a new ReRead editor:
 ```javascript
 // place into some parentElement
 const rr_editor = rereadEditor(parentElement, {
@@ -24,41 +24,42 @@ const rr_editor = rereadEditor(parentElement, {
 });
 ```
 
-Import regular expression string into reread editor:
+Import regular expression string into ReRead editor:
 ```javascript
 const regexString = '(hello|hi) world';
 rr_editor.fromRe(regexString);
 ```
 
-Export reread content to regular expression string:
+Export ReRead content to regular expression string:
 ```javascript
 const regexString = rr_editor.toRe();
 ```
 
-Export reread content to a JS compiled regular expression object:
+Export ReRead content to a JS compiled regular expression object:
 ```javascript
 const regex = rr_editor.toRegExp();
 ```
 
-Add onchange event listener (fires every time reread editor content changes):
+Add onchange event listener (fires every time ReRead editor content changes):
 ```javascript
 const rr_editor = rereadEditor(parentElement, {
   height: '20em'
 });
 rr_editor.onchange = () => {
-  console.log('reread editor content changed');
+  console.log('ReRead editor content changed');
 };
 ```
 
 See [demo](src/demo) for a complete example.
 
 
-
+===
 ## API Reference
 
+---
 ### `rereadEditor(element, options)`
 
-Creates a new reread editor instance.
+Creates a new ReRead editor instance.
 
 **Parameters:**
 
@@ -70,8 +71,9 @@ Creates a new reread editor instance.
 
 **Returns:**
 
-- `editor`: The reread editor instance
+- `editor`: The ReRead editor instance
 
+---
 ### `editor.setValue(value)`
 
 Sets the value of the editor.
@@ -80,6 +82,7 @@ Sets the value of the editor.
 
 - `value`: Array of tokens. Each token can be a string or an object with `text` and `token` properties.
 
+---
 ### `editor.getValue()`
 
 Gets the current value of the editor as an array of tokens.
@@ -88,39 +91,46 @@ Gets the current value of the editor as an array of tokens.
 
 - `value`: The current value as an array of tokens.
 
+---
 ### `editor.toRe()`
 
-Converts the reread value to a regular expression string.
+Converts the ReRead value to a regular expression string.
 
 **Returns:**
 
 - `regexString`: The regular expression string
 
+---
 ### `editor.fromRe(regexString)`
 
-Converts a regular expression string to reread value.
+Converts a regular expression string to ReRead value.
 
 **Parameters:**
 
 - `regexString`: The regular expression string
 
+---
 ### `editor.toRegExp()`
 
-Converts the reread value to a RegExp object.
+Converts the ReRead value to a RegExp object.
 
 **Returns:**
 
 - `regex`: The RegExp object
 
+---
 ### `editor.onchange`
 
-Event listener that fires every time reread editor content changes.
-Bind this to a function that will be called every time reread editor content changes.
+Event listener that fires every time ReRead editor content changes.
+Bind this to a function that will be called every time ReRead editor content changes.
 The bound function will receive the editor instance as an argument.
 
 **Parameters:**
 
 - `editor`: The editor instance
+
+
+===
 
 ## License
 
