@@ -81,7 +81,7 @@
                             title="zero or more spaces or tabs or newlines">whitespace?</span>
                     </td>
                     <td><code>^[\s]*(hello|hi)[\s]*$</code></td>
-                    <td>hello, hi</td>
+                    <td>hello</td>
                 </tr>
                 <tr>
                     <td style="width: 17em">
@@ -94,7 +94,7 @@
                             style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
                             title="quoted text">"..."</span>
                     </td>
-                    <td><code>^[a-zA-Z_][a-zA-Z0-9_]\*[ ]\*=[ ]\*(?&lt;!\\)"(\\"|[^"\n])\*"$</code></td>
+                    <td><code>^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*(?&lt;!\\)"(\\"|[^"\n])*"$</code></td>
                     <td>my_var1 = "hello"</td>
                 </tr>
                 <tr>
@@ -103,7 +103,7 @@
                             style="background-color: rgba(42, 100, 200, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; border: 0.5px solid #ccc; mix-blend-mode: difference;"
                             title="text similar to 'inheritance'">≈inheritance</span>
                     </td>
-                    <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?\|i.?heritance\|in.?eritance\|inh.?ritance\|inhe.?itance\|inher.?tance\|inheri.?ance\|inherit.?nce\|inherita.?ce\|inheritan.?e\|inheritanc.?\|inheritance.)</code>
+                    <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?|i.?heritance|in.?eritance|inh.?ritance|inhe.?itance|inher.?tance|inheri.?ance|inherit.?nce|inherita.?ce|inheritan.?e|inheritanc.?|inheritance.)</code>
                     </td>
                     <td>innheritance</td>
                 </tr>
