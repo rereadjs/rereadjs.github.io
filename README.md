@@ -22,7 +22,7 @@ Table below shows sample regular expressions (middle), along with how they would
       <td>abc</td>
     </tr>
     <tr>
-      <td style="width: 15em;">
+      <td>
         <span style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces or tabs or newlines">whitespace?</span>
         <br>
         <span style="color: #c678dd;    mix-blend-mode: difference;">⦅</span><span>hello</span><span style="border: 0.5px solid #c678dd; background-color: rgba(128, 128, 128, 0.15);  color: #c678dd;   border-radius: 100%;   aspect-ratio: 1 / 1; overflow: hidden; padding: 2px; display: inline-flex; align-items: center; justify-content: center; vertical-align: top; mix-blend-mode: difference;" title="𝙤𝙧 operator (i.e., disjunction); used to indicate valid alternatives (e.g., HELLO𝙤𝙧HI)">𝙤𝙧</span><span>hi</span>
@@ -34,7 +34,7 @@ Table below shows sample regular expressions (middle), along with how they would
       <td>hello, hi</td>
     </tr>
     <tr>
-      <td>
+      <td style="width: 17em;">
         <span style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;">var</span><span style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces">spaces?</span>=<span style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces">spaces?</span><span style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="quoted text">"..."</span>
       </td>
       <td><code>^[a-zA-Z_][a-zA-Z0-9_]\*[ ]\*=[ ]\*(?&lt;!\\)"(\\"|[^"\n])\*"$</code></td>
