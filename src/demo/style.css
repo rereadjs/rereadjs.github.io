@@ -62,13 +62,15 @@ body.dark-mode {
 
 #re-editor {
   display: flex;
+  /* gap: 1em; */
 }
 
 #re-editor>div {
   width: 70%;
 }
 
-#copy-button {
+#copy-button,
+#paste-button {
   font-size: 65%;
   background-color: transparent;
   color: inherit;
@@ -76,10 +78,12 @@ body.dark-mode {
   border-radius: .25em;
   cursor: pointer;
   vertical-align: top;
-  margin: 2em;
+  margin: 2em 0.5em;
+  width: 8em;
 }
 
-#copy-button:hover {
+#copy-button:hover,
+#paste-button:hover {
   outline: solid 1px gray;
 }
 

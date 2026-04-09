@@ -65,6 +65,14 @@
     copyButton.innerText = 'Copied.';
     setTimeout(() => copyButton.innerText = 'Copy to Clipboard', 1000);
   };
+  const pasteButton = reEditorDiv.appendChild(document.createElement('button'));
+  pasteButton.innerText = 'Paste from Clipboard';
+  pasteButton.id = 'paste-button';
+  pasteButton.onclick = () => {
+    navigator.clipboard.readText().then(text => {
+      reEditor.setValue(text);
+    });
+  };
 
   // text editors
   const text1 = editor(textContainers, 'helloworld');
