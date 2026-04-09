@@ -39,8 +39,8 @@ Table below shows sample regular expressions (middle), along with how they would
       <td>
         <span style="background-color: rgba(42, 100, 200, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; border: 0.5px solid #ccc; mix-blend-mode: difference;" title="text similar to 'inheritance'">≈inheritance</span>
       </td>
-      <td><code>^(?i:($≈inheritance\|(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?\|i.?heritance\|in.?eritance\|inh.?ritance\|inhe.?itance\|inher.?tance\|inheri.?ance\|inherit.?nce\|inherita.?ce\|inheritan.?e\|inheritanc.?\|inheritance.)))$</code></td>
-      <td>inheritancce</td>
+      <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?\|i.?heritance\|in.?eritance\|inh.?ritance\|inhe.?itance\|inher.?tance\|inheri.?ance\|inherit.?nce\|inherita.?ce\|inheritan.?e\|inheritanc.?\|inheritance.)</code></td>
+      <td>innheritance</td>
     </tr>
   </tbody>
 </table>
