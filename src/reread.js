@@ -2560,6 +2560,7 @@ function tokenEditor(parent, options = {}) {
     onchange: null, onfocus: null, oncursor: null, onclick: null, onmousedown: null, onmouseup: null, onmouseover: null, onmouseout: null,
   };
 
+  // event handlers
   ['click', 'mousedown', 'mouseup', 'mouseover', 'mouseout'].forEach(ev => {
     const publicEventName = 'on' + ev;
     input.addEventListener(ev, e => mouseHandler(e, publicAPI[publicEventName]));
@@ -2571,10 +2572,12 @@ function tokenEditor(parent, options = {}) {
   });
   if (options.keyMap) publicAPI.setKeyMap(options.keyMap);
 
+  // set initial value, cursor position, trigger change and cursor events
   publicAPI.setValue(options.value || '');
   setCursorOffset(0);
   triggerChange();
   publicAPI.oncursor?.(publicAPI);
+
   return publicAPI;
 }
 

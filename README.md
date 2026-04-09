@@ -5,6 +5,11 @@ ReRead.js is a JavaScript library for editing text patterns in a more readable a
 - add comments and break up the pattern into multiple lines;
 - create custom named tokens for common and/or complex patterns.
 
+Check out the demo here: 
+https://rereadjs.github.io/src/demo/index.html
+
+Did you find a bug? Do you have suggestions?  
+Please add your issue to the [issue tracker](https://github.com/rereadjs/rereadjs.github.io/issues).
 
 
 ## Usage
@@ -46,13 +51,15 @@ Add onchange event listener (fires every time ReRead editor content changes):
 const rr_editor = rereadEditor(parentElement, {
   height: '20em'
 });
-rr_editor.onchange = () => {
-  console.log('ReRead editor content changed');
+rr_editor.onchange = (editor) => {
+  console.log('ReRead editor content changed.');
+  console.log('Editor content: ', editor.getValue());
+  console.log('Regular expression string: ', editor.toRe());
 };
 ```
 
 See [demo](src/demo) for a complete example.
-
+Demo source code: [https://github.com/rereadjs/rereadjs.github.io/tree/main/src/demo](https://github.com/rereadjs/rereadjs.github.io/tree/main/src/demo)
 
 ---
 ## API Reference
@@ -63,11 +70,20 @@ Creates a new ReRead editor instance.
 
 **Parameters:**
 
-- `element`: The DOM element where the editor will be placed
+- `element`: The DOM element where the editor will be appended to
 - `options`: Configuration options
   - `height`: Editor height (default: '20em')
   - `width`: Editor width (default: '100%')
   - `resize`: Enable resizing (default: 'both')
+  - `value`: Initial value (default: `[]`; expected array of tokens, where each token is either a string or an object with `text` and `token` properties)
+  - `onchange`: Event listener that fires every time ReRead editor content changes (expected value: `function(editor) => void`)
+  - `onfocus`: Event listener that fires when ReRead editor gains focus (expected value: `function(editor) => void`)
+  - `oncursor`: Event listener that fires when cursor position changes (expected value: `function(editor) => void`)
+  - `onclick`: Event listener that fires when ReRead editor is clicked (expected value: `function(event, editor) => void`)
+  - `onmousedown`: Event listener that fires when ReRead editor is mousedown (expected value: `function(event, editor) => void`)
+  - `onmouseup`: Event listener that fires when ReRead editor is mouseup (expected value: `function(event, editor) => void`)
+  - `onmouseover`: Event listener that fires when ReRead editor is mouseover (expected value: `function(event, editor) => void`)
+  - `onmouseout`: Event listener that fires when ReRead editor is mouseout (expected value: `function(event, editor) => void`)
 
 **Returns:**
 
@@ -141,8 +157,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Contact
 
-For questions or support, please open an issue on the GitHub repository.
-This is a side-project; please don't be too harsh in your feedback.
+For questions or support, please [open an issue](https://github.com/rereadjs/rereadjs.github.io/issues) on the GitHub repository.
+This is a side-project; please don't be too harsh in your feedback. ❤️
 
 ## Acknowledgments
 
