@@ -48,24 +48,25 @@
             <li>create custom named tokens for common and/or complex patterns.</li>
         </ul>
 
-        <p>Table below shows sample regular expressions (middle), along with how they would be represented in the ReRead
-            editor (left) and sample matching text (right):</p>
+        <p>Table below shows sample regular expressions (left), along with how they would be represented in the ReRead
+            editor (middle) and sample matching text (right):</p>
 
         <table>
             <thead>
                 <tr>
-                    <th style="width: 17em;">ReRead</th>
                     <th>Regular Expression</th>
+                    <th style="width: 17em;">ReRead</th>
                     <th style="width: 11em;">Sample Matching Text</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>abc</td>
                     <td><code>abc</code></td>
+                    <td>abc</td>
                     <td>abc</td>
                 </tr>
                 <tr>
+                    <td><code>^[\s]*(hello|hi)[\s]*$</code></td>
                     <td>
                         <span
                             style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
@@ -80,10 +81,10 @@
                             style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
                             title="zero or more spaces or tabs or newlines">whitespace?</span>
                     </td>
-                    <td><code>^[\s]*(hello|hi)[\s]*$</code></td>
                     <td>hello</td>
                 </tr>
                 <tr>
+                    <td><code>^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*(?&lt;!\\)"(\\"|[^"\n])*"$</code></td>
                     <td>
                         <span
                             style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;">var</span><span
@@ -94,16 +95,15 @@
                             style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
                             title="quoted text">"..."</span>
                     </td>
-                    <td><code>^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*(?&lt;!\\)"(\\"|[^"\n])*"$</code></td>
                     <td>my_var1 = "hello"</td>
                 </tr>
                 <tr>
+                    <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?|i.?heritance|in.?eritance|inh.?ritance|inhe.?itance|inher.?tance|inheri.?ance|inherit.?nce|inherita.?ce|inheritan.?e|inheritanc.?|inheritance.)</code>
+                    </td>
                     <td>
                         <span
                             style="background-color: rgba(42, 100, 200, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; border: 0.5px solid #ccc; mix-blend-mode: difference;"
                             title="text similar to 'inheritance'">≈inheritance</span>
-                    </td>
-                    <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?|i.?heritance|in.?eritance|inh.?ritance|inhe.?itance|inher.?tance|inheri.?ance|inherit.?nce|inherita.?ce|inheritan.?e|inheritanc.?|inheritance.)</code>
                     </td>
                     <td>innheritance</td>
                 </tr>
