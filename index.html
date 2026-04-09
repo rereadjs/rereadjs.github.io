@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>ReRead.js | reread.js</title>
+    <meta name="generator" content="Jekyll v3.10.0" />
+    <meta property="og:title" content="ReRead.js" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://rereadjs.github.io/" />
+    <meta property="og:url" content="https://rereadjs.github.io/" />
+    <meta property="og:site_name" content="reread.js" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="ReRead.js" />
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","headline":"ReRead.js","name":"reread.js","url":"https://rereadjs.github.io/"}</script>
+    <!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=14353bae53fa5219ddb123dfae79ee479fbb21da">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+    <!-- Setup Google Analytics -->
+
+
+
+    <!-- You can set your favicon here -->
+    <!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+    <!-- end custom head snippets -->
+
+</head>
+
+<body>
+    <div class="container-lg px-3 my-5 markdown-body">
+
+        <h1 id="rereadjs">ReRead.js</h1>
+
+        <p>ReRead.js is a JavaScript library for editing text patterns in a more readable and maintainable way than
+            standard regular expressions, with the ability to</p>
+        <ul>
+            <li>import from and export to regular expression code;</li>
+            <li>add comments and break up the pattern into multiple lines;</li>
+            <li>create custom named tokens for common and/or complex patterns.</li>
+        </ul>
+
+        <p>Table below shows sample regular expressions (middle), along with how they would be represented in the ReRead
+            editor (left) and sample matching text (right):</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ReRead</th>
+                    <th>Regular Expression</th>
+                    <th>Sample Matching Text</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>abc</td>
+                    <td><code>abc</code></td>
+                    <td>abc</td>
+                </tr>
+                <tr>
+                    <td style="width: 15em;">
+                        <span
+                            style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
+                            title="zero or more spaces or tabs or newlines">whitespace?</span>
+                        <br />
+                        <span style="color: #c678dd;    mix-blend-mode: difference;">⦅</span><span>hello</span><span
+                            style="border: 0.5px solid #c678dd; background-color: rgba(128, 128, 128, 0.15);  color: #c678dd;   border-radius: 100%;   aspect-ratio: 1 / 1; overflow: hidden; padding: 2px; display: inline-flex; align-items: center; justify-content: center; vertical-align: top; mix-blend-mode: difference;"
+                            title="𝙤𝙧 operator (i.e., disjunction); used to indicate valid alternatives (e.g., HELLO𝙤𝙧HI)">𝙤𝙧</span><span>hi</span>
+                        <span style="color: #c678dd;    mix-blend-mode: difference;">⦆</span>
+                        <br />
+                        <span
+                            style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
+                            title="zero or more spaces or tabs or newlines">whitespace?</span>
+                    </td>
+                    <td><code>^[\s]*(hello|hi)[\s]*$</code></td>
+                    <td>hello, hi</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span
+                            style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;">var</span><span
+                            style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
+                            title="zero or more spaces">spaces?</span>=<span
+                            style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
+                            title="zero or more spaces">spaces?</span><span
+                            style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;"
+                            title="quoted text">"..."</span>
+                    </td>
+                    <td><code>^[a-zA-Z_][a-zA-Z0-9_]\*[ ]\*=[ ]\*(?&lt;!\\)"(\\"|[^"\n])\*"$</code></td>
+                    <td>my_var1 = "hello"</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span
+                            style="background-color: rgba(42, 100, 200, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; border: 0.5px solid #ccc; mix-blend-mode: difference;"
+                            title="text similar to 'inheritance'">≈inheritance</span>
+                    </td>
+                    <td><code>(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?\|i.?heritance\|in.?eritance\|inh.?ritance\|inhe.?itance\|inher.?tance\|inheri.?ance\|inherit.?nce\|inherita.?ce\|inheritan.?e\|inheritanc.?\|inheritance.)</code>
+                    </td>
+                    <td>innheritance</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Check out the <a href="https://rereadjs.github.io/src/demo/index.html">Demo 👈</a>.</p>
+
+        <p>Did you find a bug? Do you have suggestions?<br />
+            Please add your issue to the <a href="https://github.com/rereadjs/rereadjs.github.io/issues">issue
+                tracker</a>.</p>
+
+        <h2 id="usage">Usage</h2>
+
+        <h3 id="basic-usage">Basic Usage</h3>
+
+        <p>Import as module:</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">rereadEditor</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">https://cdn.jsdelivr.net/gh/rereadjs/rereadjs.github.io@1.0/src/reread.min.js</span><span class="dl">'</span><span class="p">;</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>Create a new ReRead editor:</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="c1">// create editor and append it to some parentElement</span>
+<span class="kd">const</span> <span class="nx">rr_editor</span> <span class="o">=</span> <span class="nx">rereadEditor</span><span class="p">(</span><span class="nx">parentElement</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">height</span><span class="p">:</span> <span class="dl">'</span><span class="s1">20em</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">width</span><span class="p">:</span> <span class="dl">'</span><span class="s1">80em</span><span class="dl">'</span>
+<span class="p">});</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>Import regular expression string into ReRead editor:</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="kd">const</span> <span class="nx">regexString</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(hello|hi) world</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">rr_editor</span><span class="p">.</span><span class="nx">fromRe</span><span class="p">(</span><span class="nx">regexString</span><span class="p">);</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>Export ReRead content to regular expression string:</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="kd">const</span> <span class="nx">regexString</span> <span class="o">=</span> <span class="nx">rr_editor</span><span class="p">.</span><span class="nx">toRe</span><span class="p">();</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>Export ReRead content to a JS compiled regular expression object:</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="kd">const</span> <span class="nx">regex</span> <span class="o">=</span> <span class="nx">rr_editor</span><span class="p">.</span><span class="nx">toRegExp</span><span class="p">();</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>Add onchange event listener (fires every time ReRead editor content changes):</p>
+        <div class="language-javascript highlighter-rouge">
+            <div class="highlight">
+                <pre class="highlight"><code><span class="kd">const</span> <span class="nx">rr_editor</span> <span class="o">=</span> <span class="nx">rereadEditor</span><span class="p">(</span><span class="nx">parentElement</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">height</span><span class="p">:</span> <span class="dl">'</span><span class="s1">20em</span><span class="dl">'</span>
+<span class="p">});</span>
+<span class="nx">rr_editor</span><span class="p">.</span><span class="nx">onchange</span> <span class="o">=</span> <span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">ReRead editor content changed.</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Editor content: </span><span class="dl">'</span><span class="p">,</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">getValue</span><span class="p">());</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Regular expression string: </span><span class="dl">'</span><span class="p">,</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">toRe</span><span class="p">());</span>
+<span class="p">};</span>
+</code></pre>
+            </div>
+        </div>
+
+        <p>See <a href="src/demo">demo</a> for a complete example.
+            Demo source code: <a
+                href="https://github.com/rereadjs/rereadjs.github.io/tree/main/src/demo">https://github.com/rereadjs/rereadjs.github.io/tree/main/src/demo</a>
+        </p>
+
+        <hr />
+        <h2 id="api-reference">API Reference</h2>
+
+        <h3 id="rereadeditorelement-options"><code
+                class="language-plaintext highlighter-rouge">rereadEditor(element, options)</code></h3>
+
+        <p>Creates a new ReRead editor instance.</p>
+
+        <p><strong>Parameters:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">element</code>: The DOM element where the editor will
+                be appended to</li>
+            <li><code class="language-plaintext highlighter-rouge">options</code>: Configuration options
+                <ul>
+                    <li><code class="language-plaintext highlighter-rouge">height</code>: Editor height (default:
+                        ‘20em’)</li>
+                    <li><code class="language-plaintext highlighter-rouge">width</code>: Editor width (default: ‘100%’)
+                    </li>
+                    <li><code class="language-plaintext highlighter-rouge">resize</code>: Enable resizing (default:
+                        ‘both’)</li>
+                    <li><code class="language-plaintext highlighter-rouge">value</code>: Initial value (default: <code
+                            class="language-plaintext highlighter-rouge">[]</code>; expected array of tokens, where each
+                        token is either a string or an object with <code
+                            class="language-plaintext highlighter-rouge">text</code> and <code
+                            class="language-plaintext highlighter-rouge">token</code> properties)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onchange</code>: Event listener that fires
+                        every time ReRead editor content changes (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onfocus</code>: Event listener that fires
+                        when ReRead editor gains focus (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">oncursor</code>: Event listener that fires
+                        when cursor position changes (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onclick</code>: Event listener that fires
+                        when ReRead editor is clicked (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(event, editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onmousedown</code>: Event listener that fires
+                        when ReRead editor is mousedown (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(event, editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onmouseup</code>: Event listener that fires
+                        when ReRead editor is mouseup (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(event, editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onmouseover</code>: Event listener that fires
+                        when ReRead editor is mouseover (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(event, editor) =&gt; void</code>)</li>
+                    <li><code class="language-plaintext highlighter-rouge">onmouseout</code>: Event listener that fires
+                        when ReRead editor is mouseout (expected value: <code
+                            class="language-plaintext highlighter-rouge">function(event, editor) =&gt; void</code>)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p><strong>Returns:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">editor</code>: The ReRead editor instance</li>
+        </ul>
+
+        <hr />
+        <h3 id="editorsetvaluevalue"><code class="language-plaintext highlighter-rouge">editor.setValue(value)</code>
+        </h3>
+
+        <p>Sets the value of the editor.</p>
+
+        <p><strong>Parameters:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">value</code>: Array of tokens. Each token can be a
+                string or an object with <code class="language-plaintext highlighter-rouge">text</code> and <code
+                    class="language-plaintext highlighter-rouge">token</code> properties.</li>
+        </ul>
+
+        <hr />
+        <h3 id="editorgetvalue"><code class="language-plaintext highlighter-rouge">editor.getValue()</code></h3>
+
+        <p>Gets the current value of the editor as an array of tokens.</p>
+
+        <p><strong>Returns:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">value</code>: The current value as an array of
+                tokens.</li>
+        </ul>
+
+        <hr />
+        <h3 id="editortore"><code class="language-plaintext highlighter-rouge">editor.toRe()</code></h3>
+
+        <p>Converts the ReRead value to a regular expression string.</p>
+
+        <p><strong>Returns:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">regexString</code>: The regular expression string
+            </li>
+        </ul>
+
+        <hr />
+        <h3 id="editorfromreregexstring"><code
+                class="language-plaintext highlighter-rouge">editor.fromRe(regexString)</code></h3>
+
+        <p>Converts a regular expression string to ReRead value.</p>
+
+        <p><strong>Parameters:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">regexString</code>: The regular expression string
+            </li>
+        </ul>
+
+        <hr />
+        <h3 id="editortoregexp"><code class="language-plaintext highlighter-rouge">editor.toRegExp()</code></h3>
+
+        <p>Converts the ReRead value to a RegExp object.</p>
+
+        <p><strong>Returns:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">regex</code>: The RegExp object</li>
+        </ul>
+
+        <hr />
+        <h3 id="editoronchange"><code class="language-plaintext highlighter-rouge">editor.onchange</code></h3>
+
+        <p>Event listener that fires every time ReRead editor content changes.
+            Bind this to a function that will be called every time ReRead editor content changes.
+            The bound function will receive the editor instance as an argument.</p>
+
+        <p><strong>Parameters:</strong></p>
+
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">editor</code>: The editor instance</li>
+        </ul>
+
+        <hr />
+        <h2 id="license">License</h2>
+
+        <p>This project is licensed under the MIT License - see the <a href="/LICENSE">LICENSE</a> file for details.</p>
+
+        <h2 id="contributing">Contributing</h2>
+
+        <p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
+
+        <h2 id="contact">Contact</h2>
+
+        <p>For questions or support, please <a href="https://github.com/rereadjs/rereadjs.github.io/issues">open an
+                issue</a> on the GitHub repository.
+            This is a side-project; please don’t be too harsh in your feedback. ❤️</p>
+
+        <h2 id="acknowledgments">Acknowledgments</h2>
+
+        <ul>
+            <li><a href="https://codemirror.net/">CodeMirror</a> - Code editor for the visual interface of regular
+                expressions and test strings used in <a href="demo/index.html">demo/index.html</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">JavaScript
+                    RegExp</a> - JavaScript regular expression documentation</li>
+        </ul>
+
+        <h2 id="support">Support</h2>
+
+        <p>If you find this library useful, please consider giving it a star on GitHub! ⭐</p>
+
+
+
+        <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+            This site is open source. <a
+                href="https://github.com/rereadjs/rereadjs.github.io/edit/main/README.md">Improve this page</a>.
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"
+        integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+</body>
+
+</html>
