@@ -5,8 +5,16 @@ ReRead.js is a JavaScript library for editing text patterns in a more readable a
 - add comments and break up the pattern into multiple lines;
 - create custom named tokens for common and/or complex patterns.
 
-Check out the demo here: 
-https://rereadjs.github.io/src/demo/index.html
+Table below shows sample regular expressions (middle), along with how they would be represented in the ReRead editor (left) and sample matching text (right):
+| ReRead | Regular Expression | Sample Matching Text
+| --- | --- | --- |
+| abc | `abc` | abc
+| <span style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces or tabs or newlines">whitespace?</span><span style="color: #c678dd;    mix-blend-mode: difference;">⦅</span><span>hello</span><span style="border: 0.5px solid #c678dd; background-color: rgba(128, 128, 128, 0.15);  color: #c678dd;   border-radius: 100%;   aspect-ratio: 1 / 1; overflow: hidden; padding: 2px; display: inline-flex; align-items: center; justify-content: center; vertical-align: top; mix-blend-mode: difference;" title="𝙤𝙧 operator (i.e., disjunction); used to indicate valid alternatives (e.g., HELLO𝙤𝙧HI)">𝙤𝙧</span><span>hi</span><span style="color: #c678dd;    mix-blend-mode: difference;">⦆</span><span style="background-color: rgba(65, 160, 255, 0.4);color: #eee;  border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces or tabs or newlines">whitespace?</span> | `^[\s]*(hello\|hi)[\s]*$` | hello, hi
+| <span style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;">var</span><span style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces">spaces?</span>=<span style="background-color: rgba(65, 160, 255, 0.4);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="zero or more spaces">spaces?</span><span style="background-color: rgba(65, 160, 255, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; mix-blend-mode: difference;" title="quoted text">"..."</span> | `^[a-zA-Z_][a-zA-Z0-9_]\*[ ]\*=[ ]\*(?<!\\)"(\\"\|[^"\n])\*"$` | my_var1 = "hello"
+| <span style="background-color: rgba(42, 100, 200, 0.62);color: #eee; border-radius: 999em;padding:0 0.5em; border: 0.5px solid #ccc; mix-blend-mode: difference;" title="text similar to 'inheritance'">≈inheritance</span> | `^(?i:($≈inheritance\|(ii?nn?hh?ee?rr?ii?tt?aa?nn?cc?ee?\|i.?heritance\|in.?eritance\|inh.?ritance\|inhe.?itance\|inher.?tance\|inheri.?ance\|inherit.?nce\|inherita.?ce\|inheritan.?e\|inheritanc.?\|inheritance.)))$` | inheritancce
+
+
+Check out the [Demo 👈](https://rereadjs.github.io/src/demo/index.html).
 
 Did you find a bug? Do you have suggestions?  
 Please add your issue to the [issue tracker](https://github.com/rereadjs/rereadjs.github.io/issues).
