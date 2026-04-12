@@ -1,12 +1,12 @@
 # ReRead.js
 
-ReRead.js is a JavaScript library for editing text patterns in a more readable and maintainable way than standard regular expressions, with the ability to
+ReRead.js is an open source JavaScript library for editing text patterns in a more readable and maintainable way than standard regular expressions, with the ability to
 - import from and export to regular expression code;
 - add comments and break up the pattern into multiple lines;
 - create custom named tokens for common and/or complex patterns.
 
 
-Check out the [Demo 👈](https://rereadjs.github.io/src/demo/index.html).
+[▶️ Check out the Demo](https://rereadjs.github.io/src/demo/index.html).
 
 Did you find a bug? Do you have suggestions?  
 Please add your issue to the [issue tracker](https://github.com/rereadjs/rereadjs.github.io/issues).
